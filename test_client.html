@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Client</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmpeg/0.1/jsmpg.js"></script>
+</head>
+
+<body>
+  <canvas id="video-canvas"></canvas>
+  <script type="text/javascript" src="jsmpeg.min.js"></script>
+  <script type="text/javascript">
+    var canvas = document.getElementById('video-canvas');
+    var url = 'ws://localhost:9999';
+    var player = new JSMpeg.Player(url, { canvas: canvas });
+  </script>
+</body>
+
+</html>
