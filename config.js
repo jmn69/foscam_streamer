@@ -12,6 +12,9 @@ const envVarsSchema = Joi.object({
   NAME: Joi.string()
     .required()
     .description('websocket stream name'),
+  WS_SECRET_KEY: Joi.string()
+    .required()
+    .description('websocket secret key'),
 })
   .unknown()
   .required();
@@ -24,7 +27,8 @@ if (error) {
 const config = {
   port: envVars.PORT,
   streamUrl: envVars.STREAM_URL,
-  name: envVars.Name,
+  name: envVars.NAME,
+  wsSecretKey: envVars.WS_SECRET_KEY,
 };
 
 module.exports = config;
