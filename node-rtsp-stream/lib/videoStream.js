@@ -23,7 +23,6 @@
     this.wsPort = options.wsPort;
     this.inputStreamStarted = false;
     this.stream = void 0;
-    this.startMpeg1Stream();
     this.pipeStreamToSocketServer();
     return this;
   };
@@ -87,6 +86,7 @@
     });
     this.wsServer.on('connection', function(socket) {
       // add simple auth for ws
+      // TODO: implement database connection to fetch user/pwd and compare with a token
       console.log(
         'url: ' + getParameterByName('wsSecretKey', socket.upgradeReq.url)
       );
@@ -101,6 +101,7 @@
         return;
       }
       if (wsSecretKey === config.wsSecretKey) {
+        self.startMpeg1Stream();
         return self.onSocketConnect(socket);
       } else {
         console.log('connection closed due to invalid authentication');
@@ -144,6 +145,8 @@
         ' total)'
     );
     return socket.on('close', function(code, message) {
+      console.log(self);
+      self.mpeg1Muxer.stream.kill();
       return console.log(
         '' +
           this.name +
